@@ -1,0 +1,63 @@
+from operator import itemgetter
+
+def data(dt):
+    global line
+    with open('D:\Разное\python\scratches\data.txt', encoding='utf-8') as l:
+        for line in l:
+
+            for i in line:
+                if i.lower() in dt:
+                    dt[i.lower()] += 1
+                else:
+                    dt[i.lower()] = 1
+
+#def xz (list_d, mass):
+
+
+dt = {}
+mass = []
+mass2 = []
+mass3 = []
+data(dt)
+
+list_d = list(dt.items())
+
+#list_d.sort(key=lambda i: i[1])
+
+for i in list_d:
+    #print(i[0], ':', i[1])
+    mass.append([i[1], [i[0], 0]])
+
+while len(line) != mass[0][0]:
+
+    mass.sort(key=itemgetter(0))
+    mass[0][0] += mass[1][0]
+    for i in range(1, len(mass[1])):
+        mass[0].append(mass[1][i])
+    for i in range(1, len(mass[0])):
+        mass[0][i][1] += 1
+    mass.pop(1)
+
+# k = 1
+# for i in mass:
+#
+#     if i == k:
+#         mass2[i-1] += 1
+#     else:
+#         for j in range(i-mass[mass.index(k)]):
+#             mass2.append(0)
+#         k = i
+#         mass2[i - 1] += 1
+
+# for i in range(len(list_d)):
+#     dt[i] = 0
+
+for i in range(1, len(mass[0])):
+    mass2.append(mass[0][i][1])
+mass2.sort()
+
+for i in range(1, mass2[len(mass2)-1]+1):
+    mass3.append(mass2.count(i))
+print(mass3)
+
+
